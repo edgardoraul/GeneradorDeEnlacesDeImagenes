@@ -37,19 +37,15 @@ For i = 1 To ultimaFila
         CantS = Cells(i, 10).Value
         contador = 1
         imagenes = ""
-        Do While contador < CantS
-            If CantS = 1 Then
-                imagenes = URL & Cells(i, 5).Value & "/" & contador & extension
-                Exit Do
-            ElseIf CantS > 1 Then
-                If imagenes = "" Then
-                    imagenes = URL & Cells(i, 5).Value & "/" & contador & extension
-                End If
-                imagenes = imagenes & "," & URL & Cells(i, 5).Value & "/" & (contador + 1) & extension
-                contador = contador + 1
-            End If
+
+        ' Se recorre el loop y se concatenan los enlaces
+        Do While contador <= CantS
+            imagenes = imagenes & "," & URL & Cells(i, 5).Value & "/" & contador & extension
+            contador = contador + 1
         Loop
-        Cells(i, 6).Value = imagenes
+
+        ' Se extrae el primer caracter de la cadena, ya que es una coma y no es necesario.
+        Cells(i, 6).Value = Right(imagenes, Len(imagenes) - 1)
         
     End If
     
@@ -63,5 +59,3 @@ Next
 
 
 End Sub
-
-
